@@ -1,9 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
+/out-tsc
 
 # compiled output
 /dist
 /tmp
-/out-tsc
 # Only exists if Bazel was run
 /bazel-out
 
@@ -13,6 +13,13 @@
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # IDEs and editors
 /.idea
