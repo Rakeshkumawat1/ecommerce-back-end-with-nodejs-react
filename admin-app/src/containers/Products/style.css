@@ -1,0 +1,23 @@
+.key{
+    font-size: 10px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.value{
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+.pictureContainer{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.pictureContainer img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
