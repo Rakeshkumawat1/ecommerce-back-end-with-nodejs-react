@@ -1,25 +1,30 @@
-const express = require('express');
-const { requireSignin, adminMiddleware } = require('../common-middleware/auth');
-const { createProduct, getProductsBySlug } = require('../controller/product');
-const multer = require('multer');
-const shortid = require('shortid');
-
+const express = require("express");
+const { requireSignin, adminMiddleware, uploadS3 } = require("../common-middleware");
+const { createProduct, getProductsBySlug, getProductDetailsById, deleteProductById, getProducts, getAllProducts } = require("../controller/product");
+const multer = require("multer");
 const router = express.Router();
+const shortid = require("shortid");
+const path = require("path");
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cd){
-        cd(null, 'uploads/')
-    },
-    filename: function(req, file, cd) {
-        cd(null, shortid.generate() + '-' + file.originalname)
-    }
-})
+  destination: function (req, file, cb) {
+    cb(null, path.join(path.dirname(__dirname), "uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, shortid.generate() + "-" + file.originalname);
+  },
+});
+
 const upload = multer({ storage });
 
-router.post('/create', requireSignin, adminMiddleware, upload.array('productPicture'), createProduct);
-
-router.get('/products/:slug', getProductsBySlug);
-
+//router.post("/product/create", requireSignin, adminMiddleware, uploadS3.array("productPicture"), createProduct);
+router.post('/product/create', upload.array('productPicture'), createProduct);
+router.get("/products/:slug", getProductsBySlug);
+//router.get('/category/getcategory', getCategories);
+router.get("/product/:productId", getProductDetailsById);
+router.delete("/product/deleteProductById", requireSignin, adminMiddleware, deleteProductById);
+router.post("/product/getProducts", requireSignin, adminMiddleware, getProducts);
+router.post("/allProducts", getAllProducts);
 
 
 module.exports = router;

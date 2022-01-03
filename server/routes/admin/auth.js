@@ -1,23 +1,14 @@
-const { text } = require('body-parser');
 const express = require('express');
-
 const { signup, signin, signout } = require('../../controller/admin/auth');
-const { validateSignupRequest, isRequestValidate, validateSigninRequest } = require('../../validators/validateauth');
+const { validateSignupRequest, isRequestValidated, validateSigninRequest } = require('../../validators/auth');
+const { requireSignin } = require('../../common-middleware');
 const router = express.Router();
-const { requireSignin } = require('../../common-middleware/auth')
 
 
-
-
-router.post('/auth/signin' ,validateSigninRequest, isRequestValidate,signin());
-
-router.post('/auth/signup',validateSignupRequest, isRequestValidate, signup());
-
-router.post('/auth/signout' , signout);
-// router.post('/auth/signout', requireSignin , signout);
-
-
-
+router.post('/admin/signup', validateSignupRequest, isRequestValidated, signup);
+// router.post('/admin/signin', validateSigninRequest, isRequestValidated, signin);
+router.post('/admin/signin', signin());
+router.post('/admin/signout', signout)
 
 
 module.exports = router;
