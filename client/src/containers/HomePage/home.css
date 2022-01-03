@@ -1,0 +1,18 @@
+.ratingCountHome{
+    /* display: inline-block; */
+    background: #388e3c;
+    color: #fff;
+    font-weight: 400;
+    font-size: 12px;
+    border-radius: 3px;
+    padding: 2px 5px;
+    float: right;
+}
+
+.discountHome{
+    margin: 0 30px;
+    color: #388e3c;
+    font-size: 12px;
+    /* margin: 10px 0px; */
+    font-weight: 600;
+}
