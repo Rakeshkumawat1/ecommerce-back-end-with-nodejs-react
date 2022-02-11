@@ -104,8 +104,9 @@ exports.getCartItems = (req, res) => {
             qty: item.quantity,
           };
         });
-        res.status(200).json({ cartItems });
+        return res.status(200).json({ cartItems });
       }
+      return res.status(200).json({cartItem: []})
     });
   //}
 };

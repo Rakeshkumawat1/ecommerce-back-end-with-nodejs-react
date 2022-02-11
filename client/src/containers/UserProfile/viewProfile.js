@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { viewProfile } from '../../actions';
 import Layout from '../../components/Layout';
+import loadingImg from '../../images/Ball-Drop-Preloader-1-1.gif';
 import { imgUrl } from '../../urlConfig';
 
 /**
@@ -16,11 +17,12 @@ const ViewProfile = () => {
     toast.configure();
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.userInfo);
+    const local = localStorage.getItem('user');
 
     useEffect(() => {
-        let data = { "user": "61af8a5de2f69222dc1aaeb7" }
+        let data = { "user": local._id }
         dispatch(viewProfile(data))
-    }, [])
+    }, [local])
 
     useEffect(() => {
         if (userInfo) {
@@ -35,8 +37,8 @@ const ViewProfile = () => {
 
     return (
         <Layout>
-            <section style={{ backgroundColor: "#eee" }}>
-                {userInfo.info != null ?
+            {userInfo.info != null ?
+                <section style={{ backgroundColor: "#eee" }}>
                     <div className="container py-5">
                         <div className="row">
                             <div className="col-lg-4">
@@ -100,15 +102,6 @@ const ViewProfile = () => {
                                             </div>
                                         </div>
                                         <hr></hr>
-                                        {/* <div className="row">
-                                            <div className="col-sm-3">
-                                                <p className="mb-0">Phone</p>
-                                            </div>
-                                            <div className="col-sm-9">
-                                                <p className="text-muted mb-0">(097) 234-5678</p>
-                                            </div>
-                                        </div>
-                                        <hr></hr> */}
                                         <div className="row">
                                             <div className="col-sm-3">
                                                 <p className="mb-0">Mobile</p>
@@ -135,7 +128,7 @@ const ViewProfile = () => {
                                     <div className="col-md-6">
                                         <div className="card mb-4 mb-md-0">
                                             <div className="card-body">
-                                                <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</p>
+                                                <p className="mb-4"><span className="text-primary font-italic me-1">Orders</span> with their Status(success/panding) </p>
                                                 <p className="mb-1" style={{ fontSize: ".77rem" }}>Web Design</p>
                                                 <div className="progress rounded" style={{ height: "5px" }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: "80%", ariaValuenow: "80", ariaValuemin: "0", ariaValuemax: "100" }}></div>
@@ -162,7 +155,7 @@ const ViewProfile = () => {
                                     <div className="col-md-6">
                                         <div className="card mb-4 mb-md-0">
                                             <div className="card-body">
-                                                <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</p>
+                                                <p className="mb-4"><span className="text-primary font-italic me-1">Orders</span> with their Status(failure)</p>
                                                 <p className="mb-1" style={{ fontSize: ".77rem" }}>Web Design</p>
                                                 <div className="progress rounded" style={{ height: "5px" }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: "80%", ariaValuenow: "80", ariaValuemin: "0", ariaValuemax: "100" }}></div>
@@ -191,8 +184,12 @@ const ViewProfile = () => {
                         </div>
                     </div>
 
-                    : <h1>null</h1>}
-            </section>
+                </section>
+                :
+                <div className='container text-center'>
+                    <img src={loadingImg} style={{ width: "300px", height: "300px", marginTop: "auto" }} alt="Loading..." />
+                </div>
+            }
         </Layout>
 
 
